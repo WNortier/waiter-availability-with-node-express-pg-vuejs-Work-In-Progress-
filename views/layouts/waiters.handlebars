@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-12 center">
+        {{#waiters}}
+        <form action="/getWorkdays" method="POST">
+            {{/waiters}}
+            <label class="#"><input type="checkbox" name="workday" value="1">Monday
+                <span class="$"></span></label>
+            <label class="#"><input type="checkbox" name="workday" value="2">Tuesday
+                <span class="$"></span></label>
+            <label class="#"><input type="checkbox" name="workday" value="3">Wednesday
+                <span class="$"></span></label>
+            <label class="#"><input type="checkbox" name="workday" value="4">Thursday
+                <span class="$"></span></label>
+            <label class="#"><input type="checkbox" name="workday" value="5">Friday
+                <span class="$"></span></label>
+            <label class="#"><input type="checkbox" name="workday" value="6">Saturday
+                <span class="$"></span></label>
+            <label class="#"><input type="checkbox" name="workday" value="7">Sunday
+                <span class="$"></span></label>
+            <select name="waiterId">
+                <option>Select Name</option>
+                {{#each waiters}}
+                <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{{!-- 
+<div class="row">
+    <div class="col-12 center">
+        <form action="/getWorkdays/{{id}}" method="POST">
+
+        </form>
+    </div>
+</div> --}}
+<div class="row">
+    <div class="col-12 center">
+
+    </div>
+</div>
