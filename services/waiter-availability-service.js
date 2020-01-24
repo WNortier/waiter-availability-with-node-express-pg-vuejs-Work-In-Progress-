@@ -18,7 +18,6 @@ module.exports = function WaiterAvailabilityService(pool) {
                 });
                 for (let i = 0; i < currentDaysForWaiter.length; i++) {
                     var comparison = currentDaysForWaiter.includes(days[i])
-                    console.log(comparison)
                 }
                 if (comparison == true){
                    return null
@@ -95,6 +94,7 @@ module.exports = function WaiterAvailabilityService(pool) {
                 waiterCountToColorObject[key] = "red"
             }
         }
+        console.log(Object.values(waiterCountToColorObject))
 
         return Object.values(waiterCountToColorObject);
     }

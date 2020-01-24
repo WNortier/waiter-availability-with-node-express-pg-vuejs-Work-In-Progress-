@@ -4,7 +4,7 @@ module.exports = function WaiterAvailabiltyRoutes(waiterAvailabilityService) {
     //     res.send('Basic ExpressJS Server Template');
     // }
 
-    const home = async (req, res, next) => {
+    const home = async (req, res) => {
         try {
             res.render('home')
             // , {

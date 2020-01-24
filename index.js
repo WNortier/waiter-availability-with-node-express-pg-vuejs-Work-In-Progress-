@@ -43,14 +43,19 @@ const pool = new Pool({
 //Factories
 const WaiterAvailabilityService = require('./services/waiter-availability-service')
 const WaiterAvailabilityRoutes = require('./routes/waiter-availability-routes')
+const WaiterAPI = require('./api/waiter-api')
 const waiterAvailabilityService = WaiterAvailabilityService(pool)
 const waiterAvailabilityRoutes = WaiterAvailabilityRoutes(waiterAvailabilityService)
+const waiterAPI = WaiterAPI(waiterAvailabilityService)
 
 //Routes
 //app.get("/", waiterAvailabilityRoutes.sendRoute);
 app.get('/', waiterAvailabilityRoutes.home);
 app.post('/waiterOrManagerView', waiterAvailabilityRoutes.waiterOrManagerView);
 app.post('/getWorkdays', waiterAvailabilityRoutes.getWorkdays)
+
+//API ROUTES
+app.get('/api/waiters', waiterAPI.allWaiters)
 
 let PORT = process.env.PORT || 4007;
 
