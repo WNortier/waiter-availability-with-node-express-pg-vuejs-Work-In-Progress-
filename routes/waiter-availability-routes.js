@@ -20,7 +20,7 @@ module.exports = function WaiterAvailabiltyRoutes(waiterAvailabilityService) {
             const selection = req.body.portal;
             if (selection == 'waiter') {
                 res.render('layouts/waiters', {
-                    waiters: await waiterAvailabilityService.waiterIdAndNamesReturner()
+                    waiters: await waiterAvailabilityService.waitersTable()
                 })
             } else
                 res.render('layouts/manager', {
@@ -37,13 +37,10 @@ module.exports = function WaiterAvailabiltyRoutes(waiterAvailabilityService) {
 
     const getWorkdays = async (req, res, next) => {
         try {
-            const waiterId = req.body.waiterId
-            const workday = req.body.workday
-            console.log(waiterId)
-            console.log(workday)
-            await waiterAvailabilityService.workdayDuplicateChecker(workday, waiterId)
+            console.log(req.body)
+            await waiterAvailabilityService.workdayDuplicateChecker(req.body)
             res.render('layouts/waiters', {
-                waiters: await waiterAvailabilityService.waiterIdAndNamesReturner()
+                waiters: await waiterAvailabilityService.waitersTable()
             })
         } catch (err) {
             next(err);

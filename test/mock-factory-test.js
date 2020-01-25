@@ -24,17 +24,21 @@ describe('workdayDuplicateChecker function', async () => {
         const waiterAvailabilityService = WaiterAvailabilityService(pool);
         await waiterAvailabilityService.workdayDuplicateChecker(7, 1);
         await waiterAvailabilityService.workdayDuplicateChecker(7, 1);
-        const result = await waiterAvailabilityService.shiftsInfoReturner()
+        const result = await waiterAvailabilityService.shiftsTable()
         assert.equal(result.length, 1);
     });
     it('should prevent the selection of duplicate days from the checkboxes', async () => {
         const waiterAvailabilityService = WaiterAvailabilityService(pool);
         await waiterAvailabilityService.workdayDuplicateChecker([7, 4, 2], 1);
         await waiterAvailabilityService.workdayDuplicateChecker([7, 4, 2], 1);
-        // const result = await waiterAvailabilityService.shiftsInfoReturner()
+        // const result = await waiterAvailabilityService.shiftsTable()
         //assert.equal(result.length, 1);
     });
 });
+
+// { workday: ['7'], waiterId: '1' }
+// { workday: [ '5', '6', '7' ], waiterId: '1' }
+// { workday: [ '5', '6', '7' ], waiterId: '1' }
 
 describe('workingDays function', async () => {
     beforeEach(async () => {
@@ -43,37 +47,38 @@ describe('workingDays function', async () => {
     it('should record a day to work on if only one day (checkbox) is selected and the value is captured as a number', async () => {
         const waiterAvailabilityService = WaiterAvailabilityService(pool);
         await waiterAvailabilityService.workdayCapturer(7, 1);
-        const result = await waiterAvailabilityService.shiftsInfoReturner()
+        const result = await waiterAvailabilityService.shiftsTable()
         assert.equal(result.length, 1)
     });
     it('should record the days to work on if multiple days (checkboxs) are selected and the value is captured as an array', async () => {
         const waiterAvailabilityService = WaiterAvailabilityService(pool);
         await waiterAvailabilityService.workdayCapturer([4, 1, 4], 1);
-        const result = await waiterAvailabilityService.shiftsInfoReturner()
+        const result = await waiterAvailabilityService.shiftsTable()
         assert.equal(result.length, 3)
     });
 
 });
 
-describe('shiftsInfoReturner function', async () => {
+describe('shiftsTable function', async () => {
     beforeEach(async () => {
         await pool.query(`delete from shiftsinfo`)
     })
     it('should return all the data from the shiftsInfo table', async () => {
         const waiterAvailabilityService = WaiterAvailabilityService(pool);
         await waiterAvailabilityService.workdayCapturer([4, 1, 4], 1);
-        const result = await waiterAvailabilityService.shiftsInfoReturner()
+        const result = await waiterAvailabilityService.shiftsTable()
+        console.log(result)
         assert.equal(result.length, 3);
     });
 })
 
-describe('waiterIdAndNamesReturner function', async () => {
+describe('waitersTable function', async () => {
     beforeEach(async () => {
         await pool.query(`delete from shiftsinfo`)
     })
     it('should return all waiter names', async () => {
         const waiterAvailabilityService = WaiterAvailabilityService(pool);
-        const result = await waiterAvailabilityService.waiterIdAndNamesReturner()
+        const result = await waiterAvailabilityService.waitersTable()
         assert.equal(result.length, 4);
     });
 });

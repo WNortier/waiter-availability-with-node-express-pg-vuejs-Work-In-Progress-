@@ -40,6 +40,12 @@ const pool = new Pool({
   ssl: useSSL
 });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 //Factories
 const WaiterAvailabilityService = require('./services/waiter-availability-service')
 const WaiterAvailabilityRoutes = require('./routes/waiter-availability-routes')

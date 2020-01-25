@@ -1,7 +1,10 @@
 module.exports = function WaiterAvailabilityService(pool) {
 
-    const workdayDuplicateChecker = async (days, waiter) => {
-        if (typeof days == 'number') {
+    const workdayDuplicateChecker = async (waiterSubmission) => {
+        const days = waiterSubmission.workday
+        const waiter = waiterSubmission.waiterId
+        //If only one day is submitted make a comparison
+        if (days.length == 1) {
             const duplicateWorkdayCheck = await pool.query(`SELECT * FROM shiftsInfo 
         WHERE weekdays_id = $1 AND waiters_id = $2`, [days, waiter]);
             const result = duplicateWorkdayCheck.rowCount;
@@ -9,10 +12,12 @@ module.exports = function WaiterAvailabilityService(pool) {
                 return workdayCapturer(days, waiter)
             }
         } else {
+            //If no days have been submitted yet then capture them
             const duplicateWorkdayCheck = await pool.query('SELECT * FROM shiftsInfo WHERE waiters_id = $1', [waiter])
             if (duplicateWorkdayCheck.rowCount == 0) {
                 return workdayCapturer(days, waiter)
             } else {
+                //if some of the days submitted are already captured return null
                 const currentDaysForWaiter = duplicateWorkdayCheck.rows.map((rows) => {
                     return rows.weekdays_id
                 });
@@ -28,7 +33,7 @@ module.exports = function WaiterAvailabilityService(pool) {
 
     const workdayCapturer = async (days, waiter) => {
         try {
-            if (typeof days == 'number') {
+            if (days.length == 1) {
                 await pool.query('INSERT INTO shiftsInfo (weekdays_id, waiters_id) VALUES ($1, $2)', [days, waiter])
             } else {
                 for (let i = 0; i < days.length; i++) {
@@ -39,20 +44,6 @@ module.exports = function WaiterAvailabilityService(pool) {
             console.log(err)
         }
         return null
-    }
-
-    const shiftsInfoReturner = async () => {
-        const shiftsInfoExtraction = await pool.query('SELECT * FROM shiftsInfo')
-        return shiftsInfoExtraction.rows
-    }
-
-    const waiterIdAndNamesReturner = async () => {
-        const waiterNamesExtraction = await pool.query('SELECT * FROM waiters')
-        // const names = waiterNamesExtraction.rows.map((rows) => {
-        //     return rows.name
-        // })
-        // console.log(names)
-        return waiterNamesExtraction.rows
     }
 
     const managerInfoReturner = async () => {
@@ -94,18 +85,32 @@ module.exports = function WaiterAvailabilityService(pool) {
                 waiterCountToColorObject[key] = "red"
             }
         }
-        console.log(Object.values(waiterCountToColorObject))
-
         return Object.values(waiterCountToColorObject);
+    }
+
+    const shiftsTable = async () => {
+        const shiftsInfoExtraction = await pool.query('SELECT * FROM shiftsInfo')
+        return shiftsInfoExtraction.rows
+    }
+
+    const waitersTable = async () => {
+        const waiterNamesExtraction = await pool.query('SELECT * FROM waiters')
+        // const names = waiterNamesExtraction.rows.map((rows) => {
+        //     return rows.name
+        // })
+        // console.log(names)
+        return waiterNamesExtraction.rows
     }
 
     return {
         workdayDuplicateChecker,
         workdayCapturer,
-        shiftsInfoReturner,
-        waiterIdAndNamesReturner,
+        shiftsTable,
+        waitersTable,
         managerInfoReturner
     }
 }
 
     //'SELECT waiters.id, waiters.name FROM shiftsInfo INNER JOIN waiters on waiters.id = waiters_id'
+
+    //select waiters.name, weekdays.day from shiftsinfo inner join waiters on waiters.id = waiters_id inner join weekdays on weekdays.id = weekdays_id;
