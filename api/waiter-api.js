@@ -12,8 +12,20 @@ module.exports = function (waiterAvailabilityService) {
         }
     };
 
+    async function workdayDuplicateChecker(req, res) {
+        try {
+            await waiterAvailabilityService.workdayDuplicateChecker(req.body);
+            res.json({
+                status: 'success'
+            });
+        } catch (err) {
+            next(err);
+        }
+    };
+
 
     return {
-        allWaiters
+        allWaiters,
+        workdayDuplicateChecker
     }
 }

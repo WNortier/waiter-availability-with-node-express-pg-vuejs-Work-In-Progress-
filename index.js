@@ -62,6 +62,7 @@ app.post('/getWorkdays', waiterAvailabilityRoutes.getWorkdays)
 
 //API ROUTES
 app.get('/api/waiters', waiterAPI.allWaiters)
+app.post('/api/waiterSubmission', waiterAPI.workdayDuplicateChecker)
 
 let PORT = process.env.PORT || 4007;
 
