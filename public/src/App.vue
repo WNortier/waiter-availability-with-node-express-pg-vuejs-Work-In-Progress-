@@ -77,23 +77,23 @@ export default {
        axios.post('http://localhost:4007/api/waiterSubmission', {workday:this.workday, waiterId:this.waiterId})
     }
   },
-  // created() {
-  //   axios
-  //     .get("http://localhost:4007/api/waiters")
-  //     .then(results => {
-  //       let response = results.data;
-  //       let data = response.data;
-  //       console.log(data);
-  //       const resultArray = [];
-  //       for (let key in data) {
-  //         resultArray.push(data[key]);
-  //       }
-  //       this.waitersAndIds = resultArray;
-  //     })
-  //     .catch(function(err) {
-  //       alert(err);
-  //     });
-  // }
+  created() {
+    axios
+      .get("http://localhost:4007/api/waiters")
+      .then(results => {
+        let response = results.data;
+        let data = response.data;
+        console.log(data);
+        const resultArray = [];
+        for (let key in data) {
+          resultArray.push(data[key]);
+        }
+        this.waitersAndIds = resultArray;
+      })
+      .catch(function(err) {
+        alert(err);
+      });
+  }
 };
 </script>
 
