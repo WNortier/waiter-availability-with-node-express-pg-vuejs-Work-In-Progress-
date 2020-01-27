@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-primary" @click="sendWorkdays">Submit Workdays</button>
+      <button class="btn btn-secondary" @click="sendWorkdays">Submit Workdays</button>
     </div>
   </div>
 </template>
