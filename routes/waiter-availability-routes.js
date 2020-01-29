@@ -4,7 +4,7 @@ module.exports = function WaiterAvailabiltyRoutes(waiterAvailabilityService) {
     //     res.send('Basic ExpressJS Server Template');
     // }
 
-    const home = async (req, res) => {
+    const home = async (req, res, next) => {
         try {
             res.render('home')
             // , {
@@ -35,7 +35,7 @@ module.exports = function WaiterAvailabiltyRoutes(waiterAvailabilityService) {
         }
     }
 
-    const getWorkdays = async (req, res, next) => {
+    const managerInfoReturner = async (req, res, next) => {
         try {
             console.log(req.body)
             await waiterAvailabilityService.workdayDuplicateChecker(req.body)
@@ -51,6 +51,6 @@ module.exports = function WaiterAvailabiltyRoutes(waiterAvailabilityService) {
         //sendRoute,
         home,
         waiterOrManagerView,
-        getWorkdays
+        managerInfoReturner
     }
 }

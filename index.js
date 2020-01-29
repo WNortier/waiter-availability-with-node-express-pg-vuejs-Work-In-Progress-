@@ -58,11 +58,12 @@ const waiterAPI = WaiterAPI(waiterAvailabilityService)
 //app.get("/", waiterAvailabilityRoutes.sendRoute);
 app.get('/', waiterAvailabilityRoutes.home);
 app.post('/waiterOrManagerView', waiterAvailabilityRoutes.waiterOrManagerView);
-app.post('/getWorkdays', waiterAvailabilityRoutes.getWorkdays)
+app.post('/managerInfoReturner', waiterAvailabilityRoutes.managerInfoReturner)
 
 //API ROUTES
 app.get('/api/waiters', waiterAPI.allWaiters)
 app.post('/api/waiterSubmission', waiterAPI.workdayDuplicateChecker)
+app.get('/api/managerInfoReturner', waiterAPI.managerInfoReturner)
 
 let PORT = process.env.PORT || 4007;
 

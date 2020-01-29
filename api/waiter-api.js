@@ -23,9 +23,22 @@ module.exports = function (waiterAvailabilityService) {
         }
     };
 
+    async function managerInfoReturner(req, res, next) {
+        try {
+            let results = await waiterAvailabilityService.managerInfoReturner();
+            res.json({
+                status: 'success',
+                data: results
+            });
+        } catch (err) {
+            next(err);
+        }
+    };
+
 
     return {
         allWaiters,
-        workdayDuplicateChecker
+        workdayDuplicateChecker,
+        managerInfoReturner
     }
 }
