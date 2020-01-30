@@ -8,6 +8,9 @@
     "start": "node index.js",
     "postinstall": "ng build"
   },
+  "engines": {
+    "node": "10.15.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WNortier/expressjs-template.git"
@@ -17,9 +20,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/WNortier/expressjs-template/issues"
-  },
-  "engines": {
-    "node": "10.15.2"
   },
   "homepage": "https://github.com/WNortier/expressjs-template#readme",
   "dependencies": {
