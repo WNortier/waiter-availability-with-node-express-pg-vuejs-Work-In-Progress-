@@ -51,8 +51,13 @@ export default {
   },
   methods: {
     sendWorkdays() {
-      console.log(this.workday);
-      console.log(this.waiterId);
+      axios.get("http://localhost:4007/api/shiftsInfo")
+        .then(results => {
+        let response = results.data;
+        let data = response.data;
+        console.log(data);
+        })
+
       axios.post("http://localhost:4007/api/waiterSubmission", {
         workday: this.workday,
         waiterId: this.waiterId

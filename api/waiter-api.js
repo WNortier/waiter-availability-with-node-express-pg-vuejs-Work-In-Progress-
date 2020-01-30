@@ -12,6 +12,18 @@ module.exports = function (waiterAvailabilityService) {
         }
     };
 
+    async function shiftsTable(req, res, next) {
+        try {
+            let results = await waiterAvailabilityService.shiftsTable();
+            res.json({
+                status: 'success',
+                data: results
+            });
+        } catch (err) {
+            next(err);
+        }
+    };
+
     async function workdayDuplicateChecker(req, res, next) {
         try {
             await waiterAvailabilityService.workdayDuplicateChecker(req.body);
@@ -35,10 +47,10 @@ module.exports = function (waiterAvailabilityService) {
         }
     };
 
-
     return {
-        allWaiters,
         workdayDuplicateChecker,
-        managerInfoReturner
+        allWaiters,
+        managerInfoReturner,
+        shiftsTable
     }
 }

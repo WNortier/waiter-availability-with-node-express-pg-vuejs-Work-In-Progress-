@@ -64,6 +64,7 @@ app.post('/managerInfoReturner', waiterAvailabilityRoutes.managerInfoReturner)
 app.get('/api/waiters', waiterAPI.allWaiters)
 app.post('/api/waiterSubmission', waiterAPI.workdayDuplicateChecker)
 app.get('/api/managerInfoReturner', waiterAPI.managerInfoReturner)
+app.get('/api/shiftsInfo', waiterAPI.shiftsTable)
 
 let PORT = process.env.PORT || 4007;
 

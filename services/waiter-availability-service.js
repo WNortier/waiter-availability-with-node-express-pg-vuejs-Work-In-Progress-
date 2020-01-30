@@ -3,10 +3,13 @@ module.exports = function WaiterAvailabilityService(pool) {
     const workdayDuplicateChecker = async (waiterSubmission) => {
         const days = waiterSubmission.workday
         const waiter = waiterSubmission.waiterId
+    
+        console.log(days)
+        console.log(waiter)
         //If only one day is submitted make a comparison
         if (days.length == 1) {
             const duplicateWorkdayCheck = await pool.query(`SELECT * FROM shiftsInfo 
-        WHERE weekdays_id = $1 AND waiters_id = $2`, [days, waiter]);
+        WHERE weekdays_id = $1 AND waiters_id = $2`, [days[0], waiter]);
             const result = duplicateWorkdayCheck.rowCount;
             if (result == 0) {
                 return workdayCapturer(days, waiter)
@@ -24,17 +27,19 @@ module.exports = function WaiterAvailabilityService(pool) {
                 for (let i = 0; i < currentDaysForWaiter.length; i++) {
                     var comparison = currentDaysForWaiter.includes(days[i])
                 }
-                if (comparison == true){
-                   return null
+                if (comparison == true) {
+                    return null
                 }
             }
         }
     }
-
+    
     const workdayCapturer = async (days, waiter) => {
         try {
+            // const days = waiterSubmission.workday
+            // const waiter = waiterSubmission.waiterId
             if (days.length == 1) {
-                await pool.query('INSERT INTO shiftsInfo (weekdays_id, waiters_id) VALUES ($1, $2)', [days, waiter])
+                await pool.query('INSERT INTO shiftsInfo (weekdays_id, waiters_id) VALUES ($1, $2)', [days[0], waiter])
             } else {
                 for (let i = 0; i < days.length; i++) {
                     await pool.query('INSERT INTO shiftsInfo (weekdays_id, waiters_id) VALUES ($1, $2)', [days[i], waiter])
@@ -47,7 +52,7 @@ module.exports = function WaiterAvailabilityService(pool) {
     }
 
     const managerInfoReturner = async () => {
-        const weekdays = [1,2,3,4,5,6,7]
+        const weekdays = [1, 2, 3, 4, 5, 6, 7]
         const dayCount = []
         for (let i = 0; i < weekdays.length; i++) {
             const countExtraction = await pool.query('SELECT count(*) FROM shiftsInfo WHERE weekdays_id = $1', [weekdays[i]])
@@ -111,6 +116,6 @@ module.exports = function WaiterAvailabilityService(pool) {
     }
 }
 
-    //'SELECT waiters.id, waiters.name FROM shiftsInfo INNER JOIN waiters on waiters.id = waiters_id'
+//'SELECT waiters.id, waiters.name FROM shiftsInfo INNER JOIN waiters on waiters.id = waiters_id'
 
-    //select waiters.name, weekdays.day from shiftsinfo inner join waiters on waiters.id = waiters_id inner join weekdays on weekdays.id = weekdays_id;
+//select waiters.name, weekdays.day from shiftsinfo inner join waiters on waiters.id = waiters_id inner join weekdays on weekdays.id = weekdays_id;
