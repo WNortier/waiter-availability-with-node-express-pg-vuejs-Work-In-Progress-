@@ -55,6 +55,9 @@ export default {
         .then(results => {
         let response = results.data;
         let data = response.data;
+        // data.map(function(row) {
+        //   return row.
+        // })
         console.log(data);
         })
 

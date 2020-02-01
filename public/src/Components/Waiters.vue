@@ -1,5 +1,5 @@
 <template>
-<!-- eslint-disable -->
+  <!-- eslint-disable -->
   <div class="container">
     <h1>{{msg}}</h1>
     <br />
@@ -46,6 +46,7 @@ export default {
           resultArray.push(data[key]);
         }
         this.waitersAndIds = resultArray;
+        console.log(this.waitersAndIds);
       })
       .catch(function(err) {
         alert(err);

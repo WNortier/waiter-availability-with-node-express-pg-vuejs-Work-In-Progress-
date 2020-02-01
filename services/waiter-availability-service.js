@@ -28,7 +28,7 @@ module.exports = function WaiterAvailabilityService(pool) {
                     var comparison = currentDaysForWaiter.includes(days[i])
                 }
                 if (comparison == true) {
-                    return null
+                    return {error: "Duplicate workdays detected"}
                 }
             }
         }

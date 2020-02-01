@@ -1,13 +1,10 @@
 <template>
   <div>
-    <app-header></app-header>
+    <!-- <app-header></app-header>  -->
+    <router-view></router-view>
+    <!-- <div class="container"></div> -->
 
-    <div class="container">
-      <router-view></router-view>
-    </div>
   </div>
-
-  <!-- <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3"> -->
 </template>
 
 <script>
