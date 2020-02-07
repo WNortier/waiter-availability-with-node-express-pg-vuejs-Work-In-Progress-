@@ -14,16 +14,16 @@
       </div>
   </nav>-->
 
-  <header id="home-section">
+  <!-- <header id="home-section">
 
-    <div class="dark-overlay">
-            <app-header></app-header>
+    <div class="dark-overlay"> -->
+
       <div class="home-inner container">
         <div class="row">
           <div class="col-lg-8 d-lg-block">
             <!-- d-none  -->
             <h1 class="display-4">
-              <strong>Waiter Availability</strong>
+              <strong>Waiter Availability Portal</strong>
             </h1>
             <div class="d-flex">
               <div class="p-4 align-self-start">
@@ -38,13 +38,15 @@
             <div class="card bg-primary text-center card-form">
               <div class="card-body">
                 <form>
-                  <!-- <h3>Sign Up Today</h3>
+                  <h3>Sign Up Today</h3>
                 <p>Please fill out this form to register</p>
                 
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" placeholder="username" />
+                    <input type="text" class="form-control form-control-lg my-2" placeholder="username" />
+                    <input type="text" class="form-control form-control-lg my-2" placeholder="username" />
+                    <input type="text" class="form-control form-control-lg my-2" placeholder="username" />
                   </div>
-                  <input type="submit" value="Submit" class="btn btn-outline-light btn-block" />-->
+                  <input type="submit" value="Submit" class="btn btn-outline-light btn-block" />
                   <button @click="navigateToWaiters" class="btn btn-outline-light btn-block">Waiters</button>
                   <button @click="navigateToManager" class="btn btn-outline-light btn-block">Manager</button>
                 </form>
@@ -53,9 +55,10 @@
           </div>
         </div>
       </div>
-    </div>
-  </header>
-  <!-- </div> -->
+    <!-- </div>
+
+  </header> -->
+
 
 </template>
 

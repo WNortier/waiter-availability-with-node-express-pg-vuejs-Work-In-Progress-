@@ -1,10 +1,14 @@
 <template>
-  <div>
+    <header id="home-section">
+
+    <div class="dark-overlay">
+                  <app-header></app-header>
     <!-- <app-header></app-header>  -->
     <router-view></router-view>
     <!-- <div class="container"></div> -->
 
-  </div>
+       </div>
+    </header>
 </template>
 
 <script>

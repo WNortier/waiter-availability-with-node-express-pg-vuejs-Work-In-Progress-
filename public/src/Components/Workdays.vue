@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+    <div class="col-md-12">
       <div class="form-group">
         <label for="monday">
           <input type="checkbox" id="monday" value="1" v-model="workday" />Monday
@@ -26,16 +26,21 @@
         <br />
         <div class="row">
           <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
-            <label for="waiter">Waiter</label>
-            <select id="waiter" class="form-control" v-model="waiterId">
-              <option value="1">Warwick</option>
-              <option value="2">Pedro</option>
-              <option value="3">Timothy</option>
-              <option value="4">Anita</option>
-            </select>
+            <div class="form-group">
+              <label for="sel1">Select Waiter:</label>
+              <select class="form-control" id="sel1"  @change="onChange($event.target.value)">
+                <option
+                  v-for="(waiter, index) in waiters"
+                  :selected="waiter == 'Warwick'"
+                  :key="waiterId = index"
+                  :value="waiters.id"
+                >{{ waiters.name }}</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
+
       <button class="btn btn-secondary" @click="sendWorkdays">Submit Workdays</button>
     </div>
   </div>
@@ -46,25 +51,29 @@ export default {
   data() {
     return {
       waiterId: "",
-      workday: []
+      workday: [],
+      waiters: [{name:"Warwick", id: 1}, {name:"Timothy", id: 2}, {name:"Pedro", id: 3}, {name: "Anita", id:4}],
+      selectedWaiter: "Warwick"
     };
   },
   methods: {
     sendWorkdays() {
-      axios.get("http://localhost:4007/api/shiftsInfo")
-        .then(results => {
-        let response = results.data;
-        let data = response.data;
-        // data.map(function(row) {
-        //   return row.
-        // })
-        console.log(data);
-        })
+      // axios.get("http://localhost:4007/api/shiftsInfo").then(results => {
+      //   let response = results.data;
+      //   let data = response.data;
+      //   console.log(data);
+      // });
 
       axios.post("http://localhost:4007/api/waiterSubmission", {
         workday: this.workday,
         waiterId: this.waiterId
       });
+    }
+  },
+  computed: {
+    onChange(key)
+    {
+      this.waiterId = key
     }
   }
 };

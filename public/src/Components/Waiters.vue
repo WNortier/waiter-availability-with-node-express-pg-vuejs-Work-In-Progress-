@@ -1,7 +1,7 @@
 <template>
   <!-- eslint-disable -->
   <div class="container">
-    <h1>{{msg}}</h1>
+    <h1>Please select your desired workdays</h1>
     <br />
     <br />
     <app-workdays></app-workdays>
